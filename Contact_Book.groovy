@@ -4,8 +4,9 @@ import javax.swing.JOptionPane
 import javax.swing.JScrollPane
 import javax.swing.BoxLayout as BXL
 
-def Name = ["James","Jhon","Jim","Jerry","Barry","Bill","Bob","Bill","Brexit","Bowser","Tara","Angry Cat","Neon Cat","Pepper","Big moomin","Small moomin","My moomin","Rachy","Freddie","Dggo"] as String[]
+def Name = ["James","Jhon","Jim","Jerry","Barry","Bill","Bob","Bill","Brexit","Bowser","Tara","Angry Cat","Neon Cat","Pepper","Freddie","Dog","Cat","Tiger"] as String[]
 def arrayLength = (Name.length - 1)
+def display_arraylength = (arrayLength + 1)
 println(arrayLength)
 int numPanels = arrayLength
 
@@ -14,7 +15,7 @@ frame = swing.frame(title:"James' Contact Book", pack:true, visible:true, defaul
     panel(id:'mainPanel'){
         scrollPane( verticalScrollBarPolicy:JScrollPane.VERTICAL_SCROLLBAR_ALWAYS ) {
             vbox {
-                label("    You have $arrayLength contacts    ")
+                label("    You have $display_arraylength contacts    ")
                 label("    Here are their names, press more to see more information     ")
 
                 (0..numPanels).each { num ->
@@ -22,7 +23,6 @@ frame = swing.frame(title:"James' Contact Book", pack:true, visible:true, defaul
                     def panelID = "Contact $Contact"
                     def pane = panel( alignmentX:0f, id:panelID, background:java.awt.Color.LIGHT_GRAY ) {
                         label("$Contact")
-//                      textField( id: "description$num", text:panelID, columns: 30 )
                         button( id: "buttonpanel$num", text:"More", actionPerformed:{
                             frame.setEnabled(false);
                             swing."$panelID".background = java.awt.Color.RED;
