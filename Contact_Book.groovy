@@ -3,9 +3,26 @@ import javax.swing.WindowConstants as WC
 import javax.swing.JOptionPane
 import javax.swing.JScrollPane
 import javax.swing.BoxLayout as BXL
+import groovy.sql.Sql
 
-def Name = ["James","Jhon","Jim","Jerry","Barry","Bill","Bob","Bill","Brexit","Bowser","Tara","Angry Cat","Neon Cat","Pepper","Freddie","Dog","Cat","Tiger"] as String[]
-def arrayLength = (Name.length - 1)
+this.getClass().classLoader.rootLoader.addURL(
+        new File("sqlite-jdbc-3.23.1.jar").toURL())
+
+def sql = Sql.newInstance( 'jdbc:sqlite:databasefile.sqlite',
+        'org.sqlite.JDBC' )
+
+
+def params = [10, 'Groovy', 'http://groovy.codehaus.org']
+
+sql.execute """
+create table file_info (
+  pkey integer primary key,
+  filename text,
+  filesize integer
+)"""
+
+def Names = ["James","Jhon","Jim","Jerry","Barry","Bill","Bob","Bill","Brexit","Bowser","Tara","Angry Cat","Neon Cat","Pepper","Freddie","Dog","Cat","Tiger"] as String[]
+def arrayLength = (Names.length - 1)
 def display_arraylength = (arrayLength + 1)
 println(arrayLength)
 int numPanels = arrayLength
@@ -19,7 +36,7 @@ frame = swing.frame(title:"James' Contact Book", pack:true, visible:true, defaul
                 label("    Here are their names, press more to see more information     ")
 
                 (0..numPanels).each { num ->
-                    def Contact = Name[num]
+                    def Contact = Names[num]
                     def panelID = "Contact $Contact"
                     def pane = panel( alignmentX:0f, id:panelID, background:java.awt.Color.LIGHT_GRAY ) {
                         label("$Contact")
