@@ -4,6 +4,7 @@ import javax.swing.JOptionPane
 import javax.swing.JScrollPane
 import javax.swing.BoxLayout as BXL
 import groovy.sql.Sql
+import java.awt.Font
 
 this.getClass().classLoader.rootLoader.addURL(
         new File("sqlite-jdbc-3.23.1.jar").toURL())
@@ -11,16 +12,14 @@ this.getClass().classLoader.rootLoader.addURL(
 def sql = Sql.newInstance( 'jdbc:sqlite:databasefile.sqlite',
         'org.sqlite.JDBC' )
 
+//sql.execute """
+//create table file_info (
+ // pkey integer primary key,
+  //filename text,
+  //filesize integer
+//)"""
 
-def params = [10, 'Groovy', 'http://groovy.codehaus.org']
-
-sql.execute """
-create table file_info (
-  pkey integer primary key,
-  filename text,
-  filesize integer
-)"""
-
+Font title = new Font("Serif", Font.BOLD, 15)
 def Names = ["James","Jhon","Jim","Jerry","Barry","Bill","Bob","Bill","Brexit","Bowser","Tara","Angry Cat","Neon Cat","Pepper","Freddie","Dog","Cat","Tiger"] as String[]
 def arrayLength = (Names.length - 1)
 def display_arraylength = (arrayLength + 1)
@@ -32,7 +31,7 @@ frame = swing.frame(title:"James' Contact Book", pack:true, visible:true, defaul
     panel(id:'mainPanel'){
         scrollPane( verticalScrollBarPolicy:JScrollPane.VERTICAL_SCROLLBAR_ALWAYS ) {
             vbox {
-                label("    You have $display_arraylength contacts    ")
+                label("    You have $display_arraylength contacts    ").setFont(title)
                 label("    Here are their names, press more to see more information     ")
 
                 (0..numPanels).each { num ->
