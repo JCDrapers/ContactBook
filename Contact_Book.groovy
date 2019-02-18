@@ -33,14 +33,19 @@ def sql = Sql.newInstance("jdbc:sqlite:Contacts.db", "org.sqlite.JDBC")
 //people.add(id:2,name:'yui')
 
 
-sql.eachRow("select * from Contacts") {
-    //println("$it.id and $it.name")
-}
+//sql.eachRow("select * from Contacts") {
+//    println("$it.id and $it.name")
+//}
+
 
 //Get number of contacts in database
 def result = sql.firstRow('select count(*) as cont from Contacts WHERE name != "none"')
-long Number_Of_Contacts = result.cont
-println("$Number_Of_Contacts")
+sql.execute("DELETE from contacts where name = 'none'")
+int Number_Of_Contacts = result.cont
+
+
+
+
 
 //Fonts
     Font title = new Font("Serif", Font.BOLD, 30)
@@ -71,13 +76,24 @@ println("$Number_Of_Contacts")
                                 if ("$it.name" != 'none'){
                                     more = button(id: "buttonpanel$num", text: "More", actionPerformed: {
                                         frame.setEnabled(false);
-                                        frame2 = swing.frame(title: "Information", pack: true, visible: true, defaultCloseOperation: WC.DO_NOTHING_ON_CLOSE) {
+                                        frame2 = swing.frame(title: "Information",pack: true, visible: true, defaultCloseOperation: WC.DO_NOTHING_ON_CLOSE) {
                                             panel(id: 'secondPanel') {
                                                 vbox {
                                                     //def contact_number = (num + 1)
                                                     sql.eachRow("select rowid, * from Contacts WHERE rowid = $num+1") {
                                                         contact_num = num+1
-                                                        label("$it.name is contact number $num").setFont(Name)
+                                                        //Name
+                                                        label("Name:  $it.name  ").setFont(Name)
+                                                        // group
+                                                        label("Group:  $it.group  ").setFont(Name)
+                                                        // Mobile number
+                                                        label("Mobile Number:  $it.mobile  ").setFont(Name)
+                                                        //Home number
+                                                        label("Home Number: $it.home  ").setFont(Name)
+                                                        //Email
+                                                        label("Email: $it.email  ").setFont(Name)
+                                                        //Address
+                                                        label("Address: $it.address  ").setFont(Name)
                                                     }
                                                     ok = button(id: "buttonpanel$num", text: "OK", actionPerformed: {
                                                         frame.setEnabled(true);
@@ -179,23 +195,45 @@ println("$Number_Of_Contacts")
 
                 add_contact = button('Add Contact', constraints: BorderLayout.CENTER, actionPerformed: {
                     frame.setEnabled(false);
-                    frame4 = swing.frame(title: "hello's Information", pack: true, visible: true, defaultCloseOperation: WC.DO_NOTHING_ON_CLOSE) {
-                        panel(id: 'Add_Contact') {
+                    frame4 = swing.frame(title: "hello's Information",pack: true, visible: true, defaultCloseOperation: WC.DO_NOTHING_ON_CLOSE) {
+                        panel(id: 'Add_Contact', layout: new GridLayout(2, 5)) {
                             vbox {
-                                label(" is contact number  , press OK to close this window")
-                                Name_Field = textField(
-                                        columns: 5,
-                                )
 
-                                add_contact_button = button(id: "Contact_added", text: "Add Contact", actionPerformed: {
-                                    frame.setEnabled(true);
-                                    frame4.visible = false
-                                }
-                                )
-                                add_contact_button.setFocusPainted(false);
-                                add_contact_button.setBackground(new Color(4, 224, 129));
-                                add_contact_button.setFont(Contact_Add_Button)
+                                label 'Contact Information : '
+                                label '                      '
+                                label 'Name : '
+                                name = textField(columns: 10, actionPerformed: { name.text() })
+
+                                label 'Group : '
+                                group = textField(columns: 10, actionPerformed: { group.text() })
+
+                                label 'Mobile Number : '
+                                mobile = textField(columns: 10, actionPerformed: { mobile.text() })
+
+                                label 'Home Number : '
+                                home = textField(columns: 10, actionPerformed: { home.text() })
+
+                                label 'Email Address: '
+                                email = textField(columns: 10, actionPerformed: { email.text() })
+
+                                label 'Address : '
+                                address = textField(columns: 10, actionPerformed: { address.text() })
+
                             }
+
+                            add_contact_button = button(id: "Contact_added", text: "Add Contact", actionPerformed: {
+                                println("Name is $name.text")
+                                println("Group is $group.text")
+                                println("Mobile number is $mobile.text")
+                                println("Home number is $home.text")
+                                println("Email is $email.text")
+                                println("Address is $address.text")
+                            }
+                            )
+                            add_contact_button.setFocusPainted(false);
+                            add_contact_button.setBackground(new Color(4, 224, 129));
+                            add_contact_button.setFont(Contact_Add_Button)
+
                         }
                     }
 
