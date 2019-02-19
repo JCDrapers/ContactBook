@@ -10,4 +10,6 @@ A contacts book programmed in groovy, that allows the user to add, remove and ed
 
 # Future Features that could be implemented
 - SQL records should be deleted permanently and subsequent row ids updated ( or the use of an ascending primary key)
-- REGex
+- REGex input validation
+- Edit contact button
+- Auto reload main Jframe after adding or removing contact
