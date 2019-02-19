@@ -28,8 +28,7 @@ import java.awt.Font
 //SQL Setup
 def sql = Sql.newInstance("jdbc:sqlite:Contacts.db", "org.sqlite.JDBC")
 
-//def people = sql.dataSet("Contacts")
-//people.add(id:1, name:"leo")
+def contact = sql.dataSet("Contacts")
 //people.add(id:2,name:'yui')
 
 
@@ -40,12 +39,7 @@ def sql = Sql.newInstance("jdbc:sqlite:Contacts.db", "org.sqlite.JDBC")
 
 //Get number of contacts in database
 def result = sql.firstRow('select count(*) as cont from Contacts WHERE name != "none"')
-sql.execute("DELETE from contacts where name = 'none'")
 int Number_Of_Contacts = result.cont
-
-
-
-
 
 //Fonts
     Font title = new Font("Serif", Font.BOLD, 30)
@@ -85,7 +79,7 @@ int Number_Of_Contacts = result.cont
                                                         //Name
                                                         label("Name:  $it.name  ").setFont(Name)
                                                         // group
-                                                        label("Group:  $it.group  ").setFont(Name)
+                                                        label("Group:  $it.groups  ").setFont(Name)
                                                         // Mobile number
                                                         label("Mobile Number:  $it.mobile  ").setFont(Name)
                                                         //Home number
@@ -114,18 +108,6 @@ int Number_Of_Contacts = result.cont
                                     more.setFont(Name)
                                 }
 
-                                if ("$it.name" != 'none'){
-                                    edit_button = button(id: "buttonpanel$num", text: "Edit", actionPerformed: {
-                                        println("text")
-
-                                    }
-                                    )
-                                    //"Edit" Button Styles
-                                    edit_button.setFocusPainted(false);
-                                    edit_button.setBackground(new Color(80, 163, 252));
-                                    edit_button.setFont(Name)
-
-                                }
 
                                 if ("$it.name" != 'none'){
                                     remove_button = button(id: "buttonpanel$num", text: "Remove", actionPerformed: {
@@ -195,14 +177,14 @@ int Number_Of_Contacts = result.cont
 
                 add_contact = button('Add Contact', constraints: BorderLayout.CENTER, actionPerformed: {
                     frame.setEnabled(false);
-                    frame4 = swing.frame(title: "hello's Information",pack: true, visible: true, defaultCloseOperation: WC.DO_NOTHING_ON_CLOSE) {
-                        panel(id: 'Add_Contact', layout: new GridLayout(2, 5)) {
+                    frame4 = swing.frame(title: "Add Contact",pack: true, visible: true, defaultCloseOperation: WC.DO_NOTHING_ON_CLOSE) {
+                        panel(id: 'Add_Contact', layout: new GridLayout(1, 1)) {
                             vbox {
 
-                                label 'Contact Information : '
+                                label "Contact's Information : "
                                 label '                      '
                                 label 'Name : '
-                                name = textField(columns: 10, actionPerformed: { name.text() })
+                                name = textField(columns: 2, actionPerformed: { name.text() })
 
                                 label 'Group : '
                                 group = textField(columns: 10, actionPerformed: { group.text() })
@@ -219,15 +201,15 @@ int Number_Of_Contacts = result.cont
                                 label 'Address : '
                                 address = textField(columns: 10, actionPerformed: { address.text() })
 
+                                label '                      '
+
                             }
 
                             add_contact_button = button(id: "Contact_added", text: "Add Contact", actionPerformed: {
-                                println("Name is $name.text")
-                                println("Group is $group.text")
-                                println("Mobile number is $mobile.text")
-                                println("Home number is $home.text")
-                                println("Email is $email.text")
-                                println("Address is $address.text")
+
+                                sql.execute("INSERT INTO CONTACTS (NAME,GROUPS,mobile,home,email,address) values ($name.text,$group.text,$mobile.text,$home.text,$email.text,$address.text)")
+                                frame.setEnabled(true);
+                                frame4.visible = false
                             }
                             )
                             add_contact_button.setFocusPainted(false);
