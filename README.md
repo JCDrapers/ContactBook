@@ -1,4 +1,4 @@
-# ContactBook
+# Groovy Contact Book
 A contacts book programmed in groovy, that allows the user to add, remove and edit their contacts, all powered by an SQLite database.
 
 # Feature List
