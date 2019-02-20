@@ -29,13 +29,6 @@ import java.awt.Font
 def sql = Sql.newInstance("jdbc:sqlite:Contacts.db", "org.sqlite.JDBC")
 
 def contact = sql.dataSet("Contacts")
-//people.add(id:2,name:'yui')
-
-
-//sql.eachRow("select * from Contacts") {
-//    println("$it.id and $it.name")
-//}
-
 
 //Get number of contacts in database
 def result = sql.firstRow('select count(*) as cont from Contacts WHERE name != "none"')
@@ -235,4 +228,4 @@ int Number_Of_Contacts = result.cont
         }
     }
 
-//frame.size = [ 500, 600 ]
+frame.size = [ 500, 600 ]
