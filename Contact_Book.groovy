@@ -15,7 +15,7 @@ import groovy.sql.Sql
 import java.sql.*
 //import org.sqlite.SQLite
 
-//SQLite force get JDBC file
+//SQLite force get JDBC file ( Grapes isn't needed; but i like grapes)
 @Grapes([
         @Grab(group='org.xerial',module='sqlite-jdbc',version='3.23.1'),
         @GrabConfig(systemClassLoader=true)
