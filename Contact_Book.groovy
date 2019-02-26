@@ -164,7 +164,7 @@ frame = swing.frame(title: "James' Contact Book", pack: true, visible: true, def
         panel(id: 'secondPanel', alignmentX: 0f) {
 
             add_contact = button('Add Contact', constraints: BorderLayout.CENTER, actionPerformed: {
-                frame.setEnabled(false);
+                frame.visible = false
                 frame4 = swing.frame(title: "Add Contact",pack: true, visible: true, defaultCloseOperation: WC.DO_NOTHING_ON_CLOSE) {
                     panel(id: 'Add_Contact', layout: new GridLayout(1, 2)) {
                         vbox {
@@ -196,9 +196,8 @@ frame = swing.frame(title: "James' Contact Book", pack: true, visible: true, def
                         add_contact_button = button(id: "Contact_added", text: "Add Contact", actionPerformed: {
 
                             sql.execute("INSERT INTO CONTACTS (NAME,GROUPS,mobile,home,email,address) values ($name.text,$group.text,$mobile.text,$home.text,$email.text,$address.text)")
-                            frame.setEnabled(true);
+                            frame.visible = true;
                             frame4.visible = false
-                            frame.repaint();
                         }
                         )
                         add_contact_button.setFocusPainted(false);
@@ -206,7 +205,7 @@ frame = swing.frame(title: "James' Contact Book", pack: true, visible: true, def
                         add_contact_button.setFont(Contact_Add_Button)
 
                         exit_contact_button = button(id: "Exit Frame", text: "Exit", actionPerformed: {
-                            frame.setEnabled(true);
+                            frame.visible = true;
                             frame4.visible = false
 
                         }
