@@ -104,7 +104,6 @@ frame = swing.frame(title: "James' Contact Book", pack: true, visible: true, def
                                     frame3 = swing.frame(title: "Remove?", pack: true, visible: true, defaultCloseOperation: WC.DO_NOTHING_ON_CLOSE) {
                                         panel(id: 'thirdPanel') {
                                             vbox {
-                                                println("$num")
                                                 sql.eachRow("select rowid, * from Contacts WHERE rowid = $num+1") {
 
                                                     label("  Are you sure you want to remove $it.name?  ")
@@ -167,7 +166,7 @@ frame = swing.frame(title: "James' Contact Book", pack: true, visible: true, def
             add_contact = button('Add Contact', constraints: BorderLayout.CENTER, actionPerformed: {
                 frame.setEnabled(false);
                 frame4 = swing.frame(title: "Add Contact",pack: true, visible: true, defaultCloseOperation: WC.DO_NOTHING_ON_CLOSE) {
-                    panel(id: 'Add_Contact', layout: new GridLayout(1, 1)) {
+                    panel(id: 'Add_Contact', layout: new GridLayout(1, 2)) {
                         vbox {
 
                             label "Contact's Information : "
@@ -176,19 +175,19 @@ frame = swing.frame(title: "James' Contact Book", pack: true, visible: true, def
                             name = textField(columns: 2, actionPerformed: { name.text() })
 
                             label 'Group : '
-                            group = textField(columns: 10, actionPerformed: { group.text() })
+                            group = textField(columns: 2, actionPerformed: { group.text() })
 
                             label 'Mobile Number : '
-                            mobile = textField(columns: 10, actionPerformed: { mobile.text() })
+                            mobile = textField(columns: 2, actionPerformed: { mobile.text() })
 
                             label 'Home Number : '
-                            home = textField(columns: 10, actionPerformed: { home.text() })
+                            home = textField(columns: 2, actionPerformed: { home.text() })
 
                             label 'Email Address: '
-                            email = textField(columns: 10, actionPerformed: { email.text() })
+                            email = textField(columns: 2, actionPerformed: { email.text() })
 
                             label 'Address : '
-                            address = textField(columns: 10, actionPerformed: { address.text() })
+                            address = textField(columns: 2, actionPerformed: { address.text() })
 
                             label '                      '
 
@@ -199,11 +198,22 @@ frame = swing.frame(title: "James' Contact Book", pack: true, visible: true, def
                             sql.execute("INSERT INTO CONTACTS (NAME,GROUPS,mobile,home,email,address) values ($name.text,$group.text,$mobile.text,$home.text,$email.text,$address.text)")
                             frame.setEnabled(true);
                             frame4.visible = false
+                            frame.repaint();
                         }
                         )
                         add_contact_button.setFocusPainted(false);
                         add_contact_button.setBackground(new Color(4, 224, 129));
                         add_contact_button.setFont(Contact_Add_Button)
+
+                        exit_contact_button = button(id: "Exit Frame", text: "Exit", actionPerformed: {
+                            frame.setEnabled(true);
+                            frame4.visible = false
+
+                        }
+                        )
+                        exit_contact_button.setFocusPainted(false);
+                        exit_contact_button.setBackground(new Color(150, 50, 50));
+                        exit_contact_button.setFont(Contact_Add_Button)
 
                     }
                 }
