@@ -13,3 +13,4 @@ A contacts book programmed in groovy, that allows the user to add, remove and ed
 - REGex input validation
 - Edit contact button
 - Auto reload main Jframe after adding or removing contact
+- Make program object oriented
