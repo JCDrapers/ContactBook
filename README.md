@@ -8,7 +8,7 @@ A contacts book programmed in groovy, that allows the user to add, remove and ed
 -  The on screen keys must be used - windows "X" key is disabled.
 
 
-#Images
+# Images
 
 ![DatabaseConnection](https://i.imgur.com/LVTm2Yf.png)
 
